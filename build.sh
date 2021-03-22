@@ -1,10 +1,24 @@
 #!/bin/bash
 # MIT License. See LICENSE file.
 
+case "$OSTYPE" in
+	linux*)
+		MKISO=genisoimage
+		STAT="stat -c %s"
+		;;
+	darwin* | bsd*)
+		MKISO=mkisofs
+		STAT="stat -f %z"
+		;;
+	*)
+		echo "unknown architecture"
+		;;
+esac
+
 FILENAME='init.iso'
 
 # if we are in a git repository, name the ISO after the branch, date, and short commit hash
-if [ -v CI ]; then
+if $(command -v CI); then
 	echo "We are in a CI/build environment."
 	FILENAME="$CI_COMMIT_REF_SLUG-init-$(date -u '+%Y%m%d').$CI_COMMIT_SHORT_SHA.iso"
 else
@@ -27,9 +41,9 @@ else
 	echo "Building image to $FILENAME ..."
 fi
 
-genisoimage -output $FILENAME -volid cidata -joliet -rock user-data meta-data 2>build.log
+$MKISO -output $FILENAME -volid cidata -joliet -rock user-data meta-data 2>build.log
 
-FILESIZE=$(stat -c %s $FILENAME 2>/dev/null)
+FILESIZE=$($STAT $FILENAME 2>/dev/null)
 COLUMNS=$(tput cols)
 if [[ $FILESIZE > 0 ]]; then
 	printf '%s (%d bytes) ... done!\n' $FILENAME $FILESIZE
