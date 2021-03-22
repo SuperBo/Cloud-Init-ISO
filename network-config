@@ -1,0 +1,11 @@
+version: 2
+ethernets:
+  id0:
+    match:
+      name: ens*
+    dhcp4: false
+    dhcp6: false
+    addresses: [10.0.15.10/24]
+    gateway4: 10.0.15.254
+    nameservers:
+      addresses: [1.1.1.1, 8.8.8.8]

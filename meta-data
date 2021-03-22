@@ -1,2 +1,2 @@
-instance-id: cloud-host-0
-local-hostname: cloudhost
+instance-id: be-notebook
+local-hostname: be-notebook
