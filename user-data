@@ -6,9 +6,12 @@ users:
     groups: sudo
     lock_passwd: false
     passwd: $6$rounds=4096$fSEdcOiC5gJbtvYQ$RtpTvZ94sCnFWKDkHX12257EJeLLf5rQgKadhKQQ6mJS67RJtCs0L333ao5SlE/ISaNntZUOSzqZ7WjrsmM7D1
+    chpasswd:
+      expire: true
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDnfv47T7c4lm4l/7vv67D8ZyumtMhSw+p1loir2idgl y.nguyen@be.com.vn
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAd1lr9MUKvJ3nXm/x5vvi/ONyRFgcxA6nFI4JFJ4VI4 y.nguyen@be.xyz
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA6ECLZm/+rsAXAxCdDdfehsL3DRHJbVgB/SIOa3XLyR superbo@iPad
 
 package_update: true
 package_upgrade: true
